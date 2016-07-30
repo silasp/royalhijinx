@@ -11,14 +11,12 @@
 
 				<?php 
 					if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
-					the_post_thumbnail('parallax-one-post-thumbnail-latest-news');
+					the_post_thumbnail();
 					}
 				?>
 			</a>
 		</div>
-		<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" >
-			<?php the_title( '<h3 itemprop="name" class="edd_download_title">', '</h3>' ); ?>
-		</a>
+		<?php the_title( '<h3 itemprop="name" class="edd_download_title">', '</h3>' ); ?>
 
 		<div itemprop="description" class="edd_download_excerpt">
 			<?php the_excerpt(); ?>
