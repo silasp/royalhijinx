@@ -1,34 +1,13 @@
 <?php
-
 /**
-
- * The template for displaying all pages.
-
- *
-
- * This is the template that displays all pages by default.
-
- * Please note that this is the WordPress construct of pages
-
- * and that other 'pages' on your WordPress site will use a
-
- * different template.
-
- *
-
- * @package zerif
-
+ * The template for displaying all WooCommerce pages.
  */
-
-
-
 get_header(); ?>
 
 <div class="clear"></div>
 
 </header> <!-- / END HOME SECTION  -->
-
-
+<?php zerif_after_header_trigger(); ?>
 <div id="content" class="site-content">
 
 	<div class="container">
@@ -37,7 +16,7 @@ get_header(); ?>
 
 			<div id="primary" class="content-area">
 
-				<main id="main" class="site-main" role="main">
+				<main id="main" class="site-main">
 
 					<?php woocommerce_content(); ?>
 
