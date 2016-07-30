@@ -247,7 +247,7 @@ function zerif_pro_check_license() {
     //         $license_data = new stdClass();
     //         $license_data -> license = "valid";
     //     }
-    }
+    // }
 
     //
     // $license_old = get_option( 'zerif_pro_license_data', '' );
@@ -261,19 +261,18 @@ function zerif_pro_check_license() {
 }
 
 function zerif_pro_theme_updater() {
-    // This will just break, so
     return;
-    //
-    // $theme_data =   wp_get_theme(basename(get_template_directory() ));
-    // $test_license = trim( zerif_pro_get_license() );
-    // $edd_updater = new EDD_SL_Theme_Updater( array(
-    //         'remote_api_url' 	=> TI_SL_STORE_URL, 	// Our store URL that is running EDD
-    //         'version' 			=> $theme_data->get('Version'), 				// The current theme version we are running
-    //         'license' 			=> $test_license, 		// The license key (used get_option above to retrieve from DB)
-    //         'item_name' 		=> $theme_data->get('Name'),	// The name of this theme
-    //         'author'			=> 'ThemeIsle'	// The author's name
-    //     )
-    // );
+
+    $theme_data =   wp_get_theme(basename(get_template_directory() ));
+    $test_license = trim( zerif_pro_get_license() );
+    $edd_updater = new EDD_SL_Theme_Updater( array(
+            'remote_api_url' 	=> TI_SL_STORE_URL, 	// Our store URL that is running EDD
+            'version' 			=> $theme_data->get('Version'), 				// The current theme version we are running
+            'license' 			=> $test_license, 		// The license key (used get_option above to retrieve from DB)
+            'item_name' 		=> $theme_data->get('Name'),	// The name of this theme
+            'author'			=> 'ThemeIsle'	// The author's name
+        )
+    );
 }
 add_action( 'admin_init', 'zerif_pro_theme_updater' );
 
