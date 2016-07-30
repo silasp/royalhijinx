@@ -7,7 +7,6 @@ add_action( 'admin_init', 'zerif_pro_register_settings' );
 
 function zerif_pro_register_settings()
 {
-
     if(!is_admin()) return false;
     $theme_data =   wp_get_theme(basename(get_template_directory() ));
     add_settings_field(
@@ -27,12 +26,14 @@ function zerif_pro_license_view(){
 }
 
 function zerif_pro_get_status(){
-    $license_data = get_option( 'zerif_pro_license_data', '' );
-    if($license_data !== ''){
-        return isset($license_data->license) ? $license_data->license : get_option( 'zerif_pro_license_status','' ) ;
-    }else{
-        return get_option( 'zerif_pro_license_status','' ) ;
-    }
+    return 'valid';
+    //
+    // $license_data = get_option( 'zerif_pro_license_data', '' );
+    // if($license_data !== ''){
+    //     return isset($license_data->license) ? $license_data->license : get_option( 'zerif_pro_license_status','' ) ;
+    // }else{
+    //     return get_option( 'zerif_pro_license_status','' ) ;
+    // }
 }
 
 function zerif_pro_get_license(){
@@ -202,65 +203,77 @@ function zerif_pro_theme_valid($force = false){
 
 function zerif_pro_check_license() {
 
-    global $wp_version;
-
-    $status = zerif_pro_get_status();
-
-    if($status != "valid") {
-        $license_data = new stdClass();
-        $license_data -> license = "invalid";
-        return $license_data;
-    }
-    $theme_data =   wp_get_theme(basename(get_template_directory() ));
-    $license = trim( zerif_pro_get_license() );
-    $api_params = array(
-        'edd_action' => 'check_license',
-        'license' => $license,
-        'item_name' => urlencode(  $theme_data->get('Name') ),
-        'url'       => home_url()
-    );
-    // Call the custom API.
-    $response = wp_remote_get( add_query_arg( $api_params, TI_SL_STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
-
-
-    if ( is_wp_error( $response ) )
-    {
-        $license_data = new stdClass();
-        $license_data -> license = "valid";
-
-    }else{
-
-        $license_data = json_decode( wp_remote_retrieve_body( $response ) );
-        if(!is_object($license_data)){
-            $license_data = new stdClass();
-            $license_data -> license = "valid";
-        }
-    }
-
-
-    $license_old = get_option( 'zerif_pro_license_data', '' );
-    if(isset($license_old->hide_valid)) $license_data->hide_valid = true;
-    if(!isset($license_data->key)) $license_data->key = isset($license_old->key) ? $license_old->key : "" ;
-    if(isset($license_old->hide_expiration)) $license_data->hide_expiration = true;
-    if(isset($license_old->hide_activation)) $license_data->hide_activation = true;
+    // global $wp_version;
+    $license_data = new stdClass();
+    $license_data->license = "valid"; // invalid
+    $license_data->hide_valid = true;
+    $license_data->key = "";
+    $license_data->hide_expiration = true;
+    $license_data->hide_activation = true;
     return $license_data;
+    //
+    // $status = zerif_pro_get_status();
+    //
+    // if($status != "valid") {
+    //     $license_data = new stdClass();
+    //     $license_data -> license = "valid"; // invalid
+    //     return $license_data;
+    // }
+    //
+    // $theme_data =   wp_get_theme(basename(get_template_directory() ));
+    // $license = trim( zerif_pro_get_license() );
+    // $api_params = array(
+    //     'edd_action' => 'check_license',
+    //     'license' => $license,
+    //     'item_name' => urlencode(  $theme_data->get('Name') ),
+    //     'url'       => home_url()
+    // );
+    // // Call the custom API.
+    // // $response = wp_remote_get( add_query_arg( $api_params, TI_SL_STORE_URL ), array( 'timeout' => 15, 'sslverify' => false ) );
+    //
+    // $license_data = new stdClass();
+    // $license_data -> license = "valid";
+
+
+    // if ( is_wp_error( $response ) )
+    // {
+    //     $license_data = new stdClass();
+    //     $license_data -> license = "valid";
+    //
+    // }else{
+    //
+    //     $license_data = json_decode( wp_remote_retrieve_body( $response ) );
+    //     if(!is_object($license_data)){
+    //         $license_data = new stdClass();
+    //         $license_data -> license = "valid";
+    //     }
+    }
+
+    //
+    // $license_old = get_option( 'zerif_pro_license_data', '' );
+    // if(isset($license_old->hide_valid)) $license_data->hide_valid = true;
+    // if(!isset($license_data->key)) $license_data->key = isset($license_old->key) ? $license_old->key : "" ;
+    // if(isset($license_old->hide_expiration)) $license_data->hide_expiration = true;
+    // if(isset($license_old->hide_activation)) $license_data->hide_activation = true;
+    // return $license_data;
 
 
 }
 
 function zerif_pro_theme_updater() {
-
-
-    $theme_data =   wp_get_theme(basename(get_template_directory() ));
-    $test_license = trim( zerif_pro_get_license() );
-    $edd_updater = new EDD_SL_Theme_Updater( array(
-            'remote_api_url' 	=> TI_SL_STORE_URL, 	// Our store URL that is running EDD
-            'version' 			=> $theme_data->get('Version'), 				// The current theme version we are running
-            'license' 			=> $test_license, 		// The license key (used get_option above to retrieve from DB)
-            'item_name' 		=> $theme_data->get('Name'),	// The name of this theme
-            'author'			=> 'ThemeIsle'	// The author's name
-        )
-    );
+    // This will just break, so
+    return;
+    //
+    // $theme_data =   wp_get_theme(basename(get_template_directory() ));
+    // $test_license = trim( zerif_pro_get_license() );
+    // $edd_updater = new EDD_SL_Theme_Updater( array(
+    //         'remote_api_url' 	=> TI_SL_STORE_URL, 	// Our store URL that is running EDD
+    //         'version' 			=> $theme_data->get('Version'), 				// The current theme version we are running
+    //         'license' 			=> $test_license, 		// The license key (used get_option above to retrieve from DB)
+    //         'item_name' 		=> $theme_data->get('Name'),	// The name of this theme
+    //         'author'			=> 'ThemeIsle'	// The author's name
+    //     )
+    // );
 }
 add_action( 'admin_init', 'zerif_pro_theme_updater' );
 
