@@ -47,18 +47,66 @@ wp_head(); ?>
 <?php endif;
 
 	zerif_top_body_trigger();
-	
+
+  ?>
+  <div class="tv">
+  		 <div class="screen mute" id="tv"></div>
+  </div>
+
+<style>
+.tv {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.tv iframe {
+  left: 0 !important;
+}
+
+.tv .screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    margin: auto;
+    opacity: 0;
+    transition: opacity .5s;
+}
+
+.tv .screen.active {
+    opacity: 0.9;
+}
+
+body.custom-background {
+  background-image: none;
+}
+
+
+</style>
+
+  <?php
+
 	/* Preloader */
 
 	if(is_front_page() && !is_customize_preview() && get_option( 'show_on_front' ) != 'page' ):
- 
+
 		$zerif_disable_preloader = get_theme_mod('zerif_disable_preloader');
-		
+
 		if( isset($zerif_disable_preloader) && ($zerif_disable_preloader != 1)):
 			echo '<div class="preloader">';
 				echo '<div class="status">&nbsp;</div>';
 			echo '</div>';
-		endif;	
+		endif;
 
 	endif; ?>
 
@@ -105,15 +153,15 @@ wp_head(); ?>
 					else:
 
 						echo '<a href="'.esc_url( home_url( '/' ) ).'" class="navbar-brand">';
-						
+
 							if( file_exists(get_stylesheet_directory()."/images/logo.png")):
-							
+
 								echo '<img src="'.get_stylesheet_directory_uri().'/images/logo.png" alt="'.esc_attr( get_bloginfo('title') ).'">';
-							
+
 							else:
-								
+
 								echo '<img src="'.get_template_directory_uri().'/images/logo.png" alt="'.esc_attr( get_bloginfo('title') ).'">';
-								
+
 							endif;
 
 						echo '</a>';
