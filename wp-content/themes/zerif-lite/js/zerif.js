@@ -742,13 +742,15 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var tv,
     playerDefaults = {autoplay: 0, autohide: 1, modestbranding: 0, rel: 0, showinfo: 0, controls: 0, disablekb: 1, enablejsapi: 0, iv_load_policy: 3};
+// Api reference: https://developers.google.com/youtube/iframe_api_reference#Playback_quality
 var vid = [
-      {'videoId': 'wTaU8E3frSs', 'startSeconds': 60, 'endSeconds': 690, 'suggestedQuality': 'hd720'}
+      {'videoId': 'wTaU8E3frSs', 'startSeconds': 60, 'endSeconds': 690, 'suggestedQuality': 'default'}
     ],
     randomvid = Math.floor(Math.random() * (vid.length - 1 + 1));
 
 function onYouTubePlayerAPIReady(){
   tv = new YT.Player('tv', {events: {'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange}, playerVars: playerDefaults});
+  // jQuery('body').removeClass('custom-background');
 }
 
 function onPlayerReady(){
@@ -757,28 +759,44 @@ function onPlayerReady(){
 }
 
 function onPlayerStateChange(e) {
+
   if (e.data === 1){
+    jQuery('body').removeClass('custom-background');
+    jQuery('.mobile-bg-fix-img').css({'background-image': 'none'});
+    // jQuery('body.custom-background').css({'background-image': 'none'});
+
+
+
     jQuery('#tv').addClass('active');
   } else if (e.data === 0){
     tv.seekTo(vid[randomvid].startSeconds)
   }
 }
 
-function vidRescale(){
+function vidRescale() {
+  if (tv === undefined ) {
+    return;
+  }
   var jqTv = jQuery('.tv');
 
   var w = jQuery(window).width()+200,
     h = jQuery(window).height()+200;
 
-  var tvW = w*1.5;
+  var tvW = w*1.55;
   if (tvW < 1300) {
     tvW = 1300;
   }
 
-  var tvTop = tvW-1650;
+  var tvTop = tvW-1750;
   if (tvW > 1559) {
-    tvTop = -120;
+    tvTop = -220;
   }
+
+  if (tvW < 1330) {
+    tvTop = -270;
+  }
+
+  // alert(tvW);
 
     jqTv.width(tvW);
     jqTv.height(h*1.5);
@@ -796,8 +814,11 @@ function vidRescale(){
 
 }
 
+var doit;
 jQuery(window).on('load resize', function(){
-  vidRescale();
+  clearTimeout(doit);
+  doit = setTimeout(vidRescale, 250);
+  // vidRescale();
 });
 
 jQuery('.hi span').on('click', function(){
