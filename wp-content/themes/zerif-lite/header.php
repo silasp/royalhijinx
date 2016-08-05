@@ -88,7 +88,7 @@ wp_head(); ?>
 }
 
 body.custom-background {
-  // background-image: none;
+  background-size: cover;
 }
 
 
