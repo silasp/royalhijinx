@@ -734,6 +734,8 @@ function type_view() {
     return 'landscape';
 }
 
+var enableVideo = false; // true;
+if (enableVideo) {
 
 /* Video Scripts */
 var tag = document.createElement('script');
@@ -831,6 +833,7 @@ jQuery('.hi span').on('click', function(){
 });
 /* End Video Scripts */
 
+}
 
 
 /* Menu levels */
