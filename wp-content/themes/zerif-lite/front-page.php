@@ -1,19 +1,19 @@
-<?php get_header(); 
+<?php get_header();
 
 if ( get_option( 'show_on_front' ) == 'page' ) {
-	
+
     include( get_page_template() );
-	
+
 }else {
 
 	if(isset($_POST['submitted']) && !defined('PIRATE_FORMS_VERSION') && !shortcode_exists( 'pirate_forms' ) ) :
 
 			/* recaptcha */
-			
+
 			$zerif_contactus_sitekey = get_theme_mod('zerif_contactus_sitekey');
 
 			$zerif_contactus_secretkey = get_theme_mod('zerif_contactus_secretkey');
-			
+
 			$zerif_contactus_recaptcha_show = get_theme_mod('zerif_contactus_recaptcha_show');
 
 			if( isset($zerif_contactus_recaptcha_show) && $zerif_contactus_recaptcha_show != 1 && !empty($zerif_contactus_sitekey) && !empty($zerif_contactus_secretkey) ) :
@@ -28,8 +28,8 @@ if ( get_option( 'show_on_front' ) == 'page' ) {
 
 		        if( !$captcha ){
 
-		          $hasError = true;    
-		          
+		          $hasError = true;
+
 		        }
 
 		        $response = wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret=".esc_html($zerif_contactus_secretkey)."&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR'] );
@@ -109,7 +109,7 @@ if ( get_option( 'show_on_front' ) == 'page' ) {
 			if(!isset($hasError)):
 
 				$zerif_contactus_email = get_theme_mod('zerif_contactus_email');
-				
+
 				if( empty($zerif_contactus_email) && !is_email($zerif_contactus_email) ):
 
 					$zerif_email = get_theme_mod('zerif_email');
@@ -117,9 +117,9 @@ if ( get_option( 'show_on_front' ) == 'page' ) {
 					$emailTo = is_email($zerif_email);
 
 				else:
-					
+
 					$emailTo = $zerif_contactus_email;
-				
+
 				endif;
 
 				if(isset($emailTo) && $emailTo != ""):
@@ -138,19 +138,19 @@ if ( get_option( 'show_on_front' ) == 'page' ) {
 						$zerif_server_name = strtolower( $_SERVER['SERVER_NAME'] );
 						return in_array( $zerif_server_name, array( 'localhost', '127.0.0.1' ) );
 					}
-					
+
 					if ( zerif_is_localhost() ) {
-					
+
 						$headers = 'From: '.$name.' <'.$zerif_admin_email.'>' . "\r\n" . 'Reply-To: ' . $email;
-						
+
 					} else {
-					
+
 						if ( substr( $zerif_sitename, 0, 4 ) == 'www.' ) {
 							$zerif_sitename = substr( $zerif_sitename, 4 );
 						}
-						
+
 						$headers = 'From: '.$name.' <wordpress@'.$zerif_sitename.'>' . "\r\n" . 'Reply-To: ' . $email;
-						
+
 					}
 
 					wp_mail($emailTo, $subject, $body, $headers);
@@ -180,51 +180,96 @@ if ( get_option( 'show_on_front' ) == 'page' ) {
 </header> <!-- / END HOME SECTION  -->
 <?php zerif_after_header_trigger(); ?>
 <div id="content" class="site-content">
-
+<a name="about-us"></a>
 <?php
-
-	/* OUR FOCUS SECTION */
-
-	$zerif_ourfocus_show = get_theme_mod('zerif_ourfocus_show');
-
-	if( isset($zerif_ourfocus_show) && $zerif_ourfocus_show != 1 ):
-	
-	zerif_before_our_focus_trigger();
-
-		get_template_part( 'sections/our_focus' );
-		
-	zerif_after_our_focus_trigger();
-
-	endif;
-
-	/* RIBBON WITH BOTTOM BUTTON */
-
-	get_template_part( 'sections/ribbon_with_bottom_button' );
 
 	/* ABOUT US */
 
 	$zerif_aboutus_show = get_theme_mod('zerif_aboutus_show');
 
 	if( isset($zerif_aboutus_show) && $zerif_aboutus_show != 1 ):
-	
+
 	zerif_before_about_us_trigger();
 
 		get_template_part( 'sections/about_us' );
-	
+
 	zerif_after_about_us_trigger();
 
 	endif;
+
+	/* APPROVED PROMO IMAGES SECTION */
+	if ( is_active_sidebar( 'sidebar-promoimages' ) ) : ?>
+	<section class="promo-images" id="promo-images">
+		<div class="container">
+			<a name="promo-images"></a>
+			<div class="section-header">
+				<h2>Promotion Images</h2>
+				<p>These images are approved for promotion purposes. Right-click to save.</p>
+			</div>
+			<div class="section-content" data-scrollreveal="enter right after 0s over 1s">
+				<?php dynamic_sidebar( 'sidebar-promoimages' ); ?>
+			</div>
+		</div>
+	</section>
+	<?php endif;
+
+	/* MUSIC SECTION */
+	if ( is_active_sidebar( 'sidebar-music' ) ) : ?>
+	<section class="promo-music tan-bg" id="promo-music">
+		<div class="container white-text">
+			<a name="music"></a>
+			<div class="section-header">
+				<h2>Music</h2>
+			</div>
+			<div class="section-content" data-scrollreveal="enter left after 0s over 1s">
+				<?php dynamic_sidebar( 'sidebar-music' ); ?>
+		  </div>
+		</div>
+	</section>
+	<?php endif;
+
+	/* APPROVED VIDEOS SECTION */
+	if ( is_active_sidebar( 'sidebar-videos' ) ) : ?>
+	<section class="promo-videos dark-bg" id="promo-videos">
+		<div class="container white-text">
+			<div class="section-header">
+				<h2>Videos</h2>
+			</div>
+			<div class="section-content" data-scrollreveal="enter right after 0s over 1s">
+				<?php dynamic_sidebar( 'sidebar-videos' ); ?>
+			</div>
+		</div>
+	</section>
+	<?php endif;
+
+	/* OUR FOCUS SECTION */
+
+	// $zerif_ourfocus_show = get_theme_mod('zerif_ourfocus_show');
+	//
+	// if( isset($zerif_ourfocus_show) && $zerif_ourfocus_show != 1 ):
+	//
+	// zerif_before_our_focus_trigger();
+	//
+	// 	get_template_part( 'sections/our_focus' );
+	//
+	// zerif_after_our_focus_trigger();
+	//
+	// endif;
+
+	/* RIBBON WITH BOTTOM BUTTON */
+
+	get_template_part( 'sections/ribbon_with_bottom_button' );
 
 	/* OUR TEAM */
 
 	$zerif_ourteam_show = get_theme_mod('zerif_ourteam_show');
 
 	if( isset($zerif_ourteam_show) && $zerif_ourteam_show != 1 ):
-	
+
 	zerif_before_our_team_trigger();
 
 		get_template_part( 'sections/our_team' );
-	
+
 	zerif_after_our_team_trigger();
 
 	endif;
@@ -234,11 +279,11 @@ if ( get_option( 'show_on_front' ) == 'page' ) {
 	$zerif_testimonials_show = get_theme_mod('zerif_testimonials_show');
 
 	if( isset($zerif_testimonials_show) && $zerif_testimonials_show != 1 ):
-	
+
 	zerif_before_testimonials_trigger();
 
 		get_template_part( 'sections/testimonials' );
-	
+
 	zerif_after_testimonials_trigger();
 
 	endif;
@@ -251,11 +296,11 @@ if ( get_option( 'show_on_front' ) == 'page' ) {
 	$zerif_latestnews_show = get_theme_mod('zerif_latestnews_show');
 
 	if( isset($zerif_latestnews_show) && $zerif_latestnews_show != 1 ):
-	
+
 	zerif_before_latest_news_trigger();
 
 		get_template_part( 'sections/latest_news' );
-	
+
 	zerif_after_latest_news_trigger();
 
 	endif;
@@ -266,6 +311,7 @@ if ( get_option( 'show_on_front' ) == 'page' ) {
 		if( isset($zerif_contactus_show) && $zerif_contactus_show != 1 ):
 			?>
 			<section class="contact-us" id="contact">
+				<a name="contact"></a>
 				<div class="container">
 					<!-- SECTION HEADER -->
 					<div class="section-header">

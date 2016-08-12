@@ -46,7 +46,7 @@
 		margin-bottom: 0 !important;
 	}
 	.purchase-now .button {
-		float: left !important;	
+		float: left !important;
 	}
    	.purchase-now .red-btn {
 	    float: left !important;
@@ -62,7 +62,7 @@
     .section-header {
         padding-bottom: 75px !important;
     }
-    .focus, .works, .about-us, .features, .packages, .products, .testimonial, .contact-us {
+    .focus, .works, .about-us, .features, .promo-images, .promo-videos, .promo-music, .packages, .products, .testimonial, .contact-us {
         padding-top: 100 !important;
         padding-bottom: 100px !important;
     }
@@ -100,13 +100,13 @@
 	}
 	.purchase-now .button {
 		float: left !important;
-	}  
+	}
 	.post-img-wrap {
 		width: auto !important;
 	}
 	.listpost-content-wrap {
 		width: 63% !important;
-		margin-top: -18px !important; 
+		margin-top: -18px !important;
 	}
 	.post-img-wrap a {
 		float: none !important;
@@ -214,12 +214,12 @@
 		float: left;
 	}
 	.responsive-logo a {
-		float: left !important;			
+		float: left !important;
 	}
 	.responsive-nav {
-		text-align: center;	
+		text-align: center;
 		width: auto;
-		padding-top: 0;	
+		padding-top: 0;
 		}
 	.responsive-nav li {
 		margin-bottom: 15px;
@@ -295,7 +295,7 @@
 	}
 	.company-details {
 		padding-top: 67px;
-		padding-bottom: 30px;  
+		padding-bottom: 30px;
 	}
 	.copyright {
 		width: auto;
@@ -319,11 +319,11 @@
 	.widget_search input {
 		float: left;
 	}
-	input[type="text"], 
-	input[type="email"], 
-	input[type="url"], 
-	input[type="password"], 
-	input[type="search"], 
+	input[type="text"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	input[type="search"],
 	textarea,
 	select {
 		border: 1px solid #cccccc;
@@ -337,7 +337,7 @@
 	.listpost-content-wrap-large {
 		background: #FFF;
 	}
-	
+
 	.post-img-wrap{
 		float: none !important;
 		margin-right: 20px;

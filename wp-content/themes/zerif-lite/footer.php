@@ -143,13 +143,13 @@
 							if( !empty($zerif_socials_facebook) ):
 								echo '<li><a'.$attribut_new_tab.' href="'.esc_url($zerif_socials_facebook).'"><i class="fa fa-facebook"></i></a></li>';
 							endif;
-							/* twitter */
+							/* soundcloud */
 							if( !empty($zerif_socials_twitter) ):
-								echo '<li><a'.$attribut_new_tab.' href="'.esc_url($zerif_socials_twitter).'"><i class="fa fa-twitter"></i></a></li>';
+								echo '<li><a'.$attribut_new_tab.' href="'.esc_url($zerif_socials_twitter).'"><i class="fa fa-soundcloud"></i></a></li>';
 							endif;
-							/* linkedin */
+							/* youtube */
 							if( !empty($zerif_socials_linkedin) ):
-								echo '<li><a'.$attribut_new_tab.' href="'.esc_url($zerif_socials_linkedin).'"><i class="fa fa-linkedin"></i></a></li>';
+								echo '<li><a'.$attribut_new_tab.' href="'.esc_url($zerif_socials_linkedin).'"><i class="fa fa-youtube"></i></a></li>';
 							endif;
 							/* behance */
 							if( !empty($zerif_socials_behance) ):
@@ -172,9 +172,9 @@
 							echo '<p id="zerif-copyright" class="zerif_hidden_if_not_customizer"></p>';
 						endif;
 
-						echo '<div class="zerif-copyright-box"><a class="zerif-copyright" href="http://themeisle.com/themes/zerif-lite/"'.$attribut_new_tab.' rel="nofollow">Zerif Lite </a>'.__('powered by','zerif-lite').'<a class="zerif-copyright" href="http://wordpress.org/"'.$attribut_new_tab.' rel="nofollow"> WordPress</a></div>';
+						// echo '<div class="zerif-copyright-box"><a class="zerif-copyright" href="http://themeisle.com/themes/zerif-lite/"'.$attribut_new_tab.' rel="nofollow">Zerif Lite </a>'.__('powered by','zerif-lite').'<a class="zerif-copyright" href="http://wordpress.org/"'.$attribut_new_tab.' rel="nofollow"> WordPress</a></div>';
 
-						echo '</div>';
+						// echo '</div>';
 
 			endif;
 		?>

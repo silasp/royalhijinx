@@ -17,7 +17,7 @@ jQuery(window).load(function() {
     jQuery(".preloader").delay(1000).fadeOut("slow");
 
 
-    jQuery('.carousel').carousel('pause');
+    // jQuery('.carousel').carousel('pause');
 
     // Focus styles for menus.
     jQuery( '.navbar-collapse' ).find( 'a' ).on( 'focus blur', function() {
@@ -734,7 +734,38 @@ function type_view() {
     return 'landscape';
 }
 
-var enableVideo = false; // true;
+
+jQuery(window).load(function() {
+
+  /* Smooth Scrolling */
+  var $root = jQuery('html, body');
+  jQuery('a[href*=#]').click(function(event){
+    $root.animate({
+        scrollTop: jQuery( jQuery.attr(this, 'href') ).offset().top
+    }, 500);
+    event.preventDefault();
+  });
+
+
+  jQuery(".soundcloud-wrapper").each(function() {
+        var URL = jQuery(this).attr('id'); // width="100%" height="200px"
+        var htm = '<iframe width="100%" height="100px" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' + URL + '&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false" frameborder="0"></iframe>';
+        // jQuery(this).html(htm).fitVids().removeClass('.loading');
+        jQuery(this).html(htm).removeClass('.loading');
+      });
+
+      // <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/172221992&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+
+  jQuery(".youtube-wrapper").each(function() {
+        var URL = jQuery(this).attr('id');
+        var htm = '<iframe height="200px" src="https://www.youtube.com/embed/' + URL + '" frameborder="0" allowfullscreen></iframe>';
+        // jQuery(this).html(htm).fitVids().removeClass('.loading');
+        jQuery(this).html(htm).removeClass('.loading');
+      });
+
+});
+
+var enableVideo = true; // false; // for top background video
 if (enableVideo) {
 
 /* Video Scripts */
@@ -838,6 +869,7 @@ jQuery('.hi span').on('click', function(){
 
 /* Menu levels */
 jQuery( document ).ready( function() {
+
   jQuery( '#site-navigation' ).zerifsubmenuorientation();
 } );
 ;(function ($, window) {
