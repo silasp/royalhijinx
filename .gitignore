@@ -2,3 +2,5 @@ wp-config.php
 wp-content/wflogs/*
 wp-content/plugins/wordfence/tmp/*
 *.sql
+*.sql.gz
+*.sql.tgz
