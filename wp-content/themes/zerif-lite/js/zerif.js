@@ -4,9 +4,11 @@
 
  =================================== */
 
-// makes sure the whole site is loaded
+// Cache jQuery(window) rather than calling it 64 times (!)
+var $jQwindow = jQuery(window);
 
-jQuery(window).load(function() {
+// makes sure the whole site is loaded
+$jQwindow.load(function() {
 
     // will first fade out the loading animation
 
@@ -119,7 +121,7 @@ jQuery(document).ready(function() {
 		var top = jQuery('#main-nav').offset().top - parseFloat(jQuery('#main-nav').css('margin-top').replace(/auto/, 0));
 	}
 
-    jQuery(window).scroll(function (event) {
+    $jQwindow.scroll(function (event) {
 
         // what the y position of the scroll is
 
@@ -161,13 +163,13 @@ jQuery(document).ready(function(){
         var idName  = hash.substring(1);    // get id name
         var alink   = this;                 // this button pressed
         // check if there is a section that had same id as the button pressed
-        if ( jQuery('section [id*=' + idName + ']').length > 0 && jQuery(window).width() >= 751 ){
+        if ( jQuery('section [id*=' + idName + ']').length > 0 && $jQwindow.width() >= 751 ){
             jQuery('.current').removeClass('current');
             jQuery(alink).parent('li').addClass('current');
         }else{
             jQuery('.current').removeClass('current');
         }
-        if ( jQuery(window).width() >= 751 ) {
+        if ( $jQwindow.width() >= 751 ) {
             headerHeight = jQuery('#main-nav').height();
         } else {
             headerHeight = 0;
@@ -189,7 +191,7 @@ jQuery(document).ready(function(){
     var headerHeight;
     jQuery('.current').removeClass('current');
     jQuery('#site-navigation a[href$="' + window.location.hash + '"]').parent('li').addClass('current');
-    if ( jQuery(window).width() >= 751 ) {
+    if ( $jQwindow.width() >= 751 ) {
         headerHeight = jQuery('#main-nav').height();
     } else {
         headerHeight = 0;
@@ -209,9 +211,9 @@ jQuery(document).ready(function(){
 
 function zerif_lite_scrolled() {
 
-    if ( jQuery(window).width() >= 751 ) {
+    if ( $jQwindow.width() >= 751 ) {
 
-        var zerif_scrollTop = jQuery(window).scrollTop();       // cursor position
+        var zerif_scrollTop = $jQwindow.scrollTop();       // cursor position
         var headerHeight = jQuery('#main-nav').outerHeight();   // header height
         var isInOneSection = 'no';                              // used for checking if the cursor is in one section or not
 
@@ -236,7 +238,7 @@ function zerif_lite_scrolled() {
         });
     }
 }
-jQuery(window).on('scroll',zerif_lite_scrolled);
+$jQwindow.on('scroll',zerif_lite_scrolled);
 
 /* ================================
 
@@ -246,13 +248,13 @@ jQuery(window).on('scroll',zerif_lite_scrolled);
 
 jQuery(document).ready(function(){
 
-    var jQuerywindow = jQuery(window);
+    var jQuerywindow = $jQwindow;
 
     jQuery('div[data-type="background"], header[data-type="background"], section[data-type="background"]').each(function(){
 
         var jQuerybgobj = jQuery(this);
 
-        jQuery(window).scroll(function() {
+        $jQwindow.scroll(function() {
 
             var yPos = -(jQuerywindow.scrollTop() / jQuerybgobj.data('speed'));
 
@@ -360,10 +362,10 @@ jQuery('.navbar-toggle').on('click', function () {
 
 
 /* SETS THE HEADER HEIGHT */
-jQuery(window).load(function(){
+$jQwindow.load(function(){
     setminHeightHeader();
 });
-jQuery(window).resize(function() {
+$jQwindow.resize(function() {
     setminHeightHeader();
 });
 function setminHeightHeader()
@@ -378,8 +380,8 @@ function setminHeightHeader()
 
 
 /* STICKY FOOTER */
-jQuery(window).load(fixFooterBottom);
-jQuery(window).resize(fixFooterBottom);
+$jQwindow.load(fixFooterBottom);
+$jQwindow.resize(fixFooterBottom);
 
 function fixFooterBottom(){
 
@@ -392,7 +394,7 @@ function fixFooterBottom(){
     var headerHeight  = header.outerHeight();
     var footerHeight  = footer.outerHeight();
     var contentHeight = content.outerHeight();
-    var windowHeight  = jQuery(window).height();
+    var windowHeight  = $jQwindow.height();
 
     var totalHeight = headerHeight + footerHeight + contentHeight;
 
@@ -432,8 +434,8 @@ var callback_menu_align = function () {
         }
     }
 }
-jQuery(window).load(callback_menu_align);
-jQuery(window).resize(callback_menu_align);
+$jQwindow.load(callback_menu_align);
+$jQwindow.resize(callback_menu_align);
 
 var isMobile = {
     Android: function() {
@@ -491,8 +493,8 @@ if( isMobile.any() ) {
 }
 
 /* latest news */
-jQuery(window).load(zerif_home_latest_news);
-jQuery(window).resize(zerif_home_latest_news);
+$jQwindow.load(zerif_home_latest_news);
+$jQwindow.resize(zerif_home_latest_news);
 function zerif_home_latest_news(){
     if( jQuery( '#carousel-homepage-latestnews').length > 0 ) {
         jQuery( '#carousel-homepage-latestnews div.item' ).height('auto');
@@ -538,14 +540,14 @@ jQuery(document).ready(function(){
 });
 
 /* Header section */
-jQuery(window).load(parallax_effect);
-jQuery(window).resize(parallax_effect);
+$jQwindow.load(parallax_effect);
+$jQwindow.resize(parallax_effect);
 
 function parallax_effect(){
 
     if( jQuery('#parallax_move').length>0 ) {
         var scene = document.getElementById('parallax_move');
-        var window_width = jQuery(window).outerWidth();
+        var window_width = $jQwindow.outerWidth();
         jQuery('#parallax_move').css({
             'width':            window_width + 120,
             'margin-left':      -60,
@@ -591,7 +593,7 @@ jQuery(document).ready(function(){
     }
 });
 
-jQuery(window).resize(function() {
+$jQwindow.resize(function() {
     if( window_width_old != jQuery('.container').outerWidth() && exist_class === true ){
         window_width_old = jQuery('.container').outerWidth();
         if( window_width_old < 970 ) {
@@ -735,7 +737,7 @@ function type_view() {
 }
 
 
-jQuery(window).load(function() {
+$jQwindow.load(function() {
 
   /* Smooth Scrolling */
   var $root = jQuery('html, body');
@@ -765,7 +767,8 @@ jQuery(window).load(function() {
 
 });
 
-var enableVideo = true; // false; // for top background video
+var enableVideo = ($jQwindow.width() > 400);
+
 if (enableVideo) {
 
 /* Video Scripts */
@@ -812,8 +815,8 @@ function vidRescale() {
   }
   var jqTv = jQuery('.tv');
 
-  var w = jQuery(window).width()+200,
-    h = jQuery(window).height()+200;
+  var w = $jQwindow.width()+200,
+    h = $jQwindow.height()+200;
 
   var tvW = w*1.55;
   if (tvW < 1300) {
@@ -848,7 +851,7 @@ function vidRescale() {
 }
 
 var doit;
-jQuery(window).on('load resize', function(){
+$jQwindow.on('load resize', function(){
   clearTimeout(doit);
   doit = setTimeout(vidRescale, 250);
   // vidRescale();
